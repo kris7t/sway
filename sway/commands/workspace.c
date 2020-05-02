@@ -158,6 +158,10 @@ struct cmd_results *cmd_workspace(int argc, char **argv) {
 			return cmd_results_new(CMD_FAILURE,
 					"Unable to allocate workspace output");
 		}
+		if (output_location + 1 < argc) {
+			list_free_items_and_destroy(wsc->outputs);
+			wsc->outputs = create_list();
+		}
 		for (int i = output_location + 1; i < argc; ++i) {
 			list_add(wsc->outputs, strdup(argv[i]));
 		}
